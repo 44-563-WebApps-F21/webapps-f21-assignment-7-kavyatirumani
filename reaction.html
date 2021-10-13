@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Timer</title>
+  <h1>Sai Tejaswee Vissapragda reaction timer</h1>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+
+  <div class="container">
+    <div id="target" class="col-sm-6">
+      Your time
+    </div>
+    <div id="countdown" class="col-sm-6">
+      Count
+    </div>
+  </div>
+
+  <input type="button" class="btn btn-success" value="Start Timer" id="button1" onclick="startTime()">
+  <input type="button" class="btn btn-warning" value="React Now" id="button2" onclick="recordReact()">
+
+
+  <script>
+    myTime = undefined
+
+    function recordReact() {
+      myTime = Date.now();
+      console.log("Time is: " + myTime)
+    }
+
+    function getRandomValue(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function startTime() {
+      var randomInt = getRandomValue(2, 10);
+      console.log(randomInt);
+      for (let i = 1; i <= 3; i++) {
+        setTimeout(function (i) {
+          document.getElementById("countdown").innerHTML = i
+        }, (((randomInt - 1) - i) * 1000), i);
+      }
+
+      setTimeout(function (i) {
+        if (myTime == undefined) {
+          document.getElementById("target").innerHTML = "Too Slow"
+          document.getElementById("button2").classList.add("btn-danger");
+          document.getElementById("button2").classList.remove("btn-warning");
+        }
+        else {
+          var buttonTime = Date.now();
+          var elapsedTime = buttonTime - myTime;
+          document.getElementById("target").innerHTML = "Time was " + elapsedTime;
+        }
+      }, (randomInt - 1) * 1000)
+    }
+
+  </script>
+
+</body>
+
+</html>
